@@ -1,4 +1,5 @@
 {
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/command-set-extension-manifest.schema.json",
   "id": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
   "alias": "BtnFlowTriggerCommandSet",
   "componentType": "Extension",
@@ -6,30 +7,31 @@
   "version": "*",
   "manifestVersion": 2,
   "requiresCustomScript": false,
-  "properties": {
-    "actionMode": "flow",
-    "flowWebhookUrl": "",
-    "powerBiWorkspaceId": "",
-    "powerBiDatasetId": "",
-    "powerBiApiScope": "https://analysis.windows.net/powerbi/api/.default",
-    "requireSelection": true
-  },
-  "items": {
+  "commands": {
     "CMD_TRIGGER_FLOW": {
-      "title": {
-        "default": "Run Flow"
-      },
-      "iconImageUrl": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOCAxTDMgOFY5SDdWMTVMMTMgOFY5SDlWMUgzWiIgZmlsbD0iIzAwNzhEMCIvPjwvc3ZnPg==",
-      "location": "ClientSideExtension.ListView.CommandBar",
-      "visible": true
-    },
-    "CMD_REFRESH_PBI": {
-      "title": {
-        "default": "Refresh Power BI"
-      },
-      "iconImageUrl": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI4IiB3aWR0aD0iMi41IiBoZWlnaHQ9IjYiIGZpbGw9IiNGMkM4MTEiLz48cmVjdCB4PSI2Ljc1IiB5PSI0IiB3aWR0aD0iMi41IiBoZWlnaHQ9IjEwIiBmaWxsPSIjRjJDOEYyIi8+PHJlY3QgeD0iMTEuNSIgeWI9IjIiIHdpZHRoPSIyLjUiIGhlaWdodD0iMTIiIGZpbGw9IiNGMkM4MTEiLz48L3N2Zz4=",
+      "title": { "default": "Trigger Flow", "scope": "Command", "id": "CMD_TRIGGER_FLOW_TITLE" },
       "location": "ClientSideExtension.ListViewCommandSet.CommandBar",
-      "visible": true
+      "iconImageUrl": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjMDAwIiBkPSJNMTQgOEw0IDJ2MTJsMTAtNnoiLz48L3N2Zz4="
+    },
+    "CMD_REFRESH_POWERBI": {
+      "title": { "default": "Refresh Power BI", "scope": "Command", "id": "CMD_REFRESH_POWERBI_TITLE" },
+      "location": "ClientSideExtension.ListViewCommandSet.CommandBar",
+      "iconImageUrl": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjMDAwIiBkPSJNOCAyei02IDZoNHY2aDRWNmg0bC02LTZ6Ii8+PC9zdmc+"
+    },
+    "CMD_BATCH_UPDATE": {
+      "title": { "default": "Batch Update", "scope": "Command", "id": "CMD_BATCH_UPDATE_TITLE" },
+      "location": "ClientSideExtension.ListViewCommandSet.CommandBar",
+      "iconImageUrl": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjMDAwIiBkPSJNMiAzLjVoMTJ2MUgyem0wIDRoMTJ2MUgyem0wIDRoMTJ2MUgyeiIvPjwvc3ZnPg=="
+    },
+    "CMD_POST_TEAMS_MESSAGE": {
+      "title": { "default": "Post to Teams", "scope": "Command", "id": "CMD_POST_TEAMS_MESSAGE_TITLE" },
+      "location": "ClientSideExtension.ListViewCommandSet.CommandBar",
+      "iconImageUrl": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjMDAwIiBkPSJNMiAyYTEyIDEyIDAgMCAxIDEyIDEydi0xMiAwIDAgMSAtMTIgMTJ6Ii8+PC9zdmc+"
+    },
+    "CMD_ARCHIVE_DOCUMENTS": {
+      "title": { "default": "Archive Selected", "scope": "Command", "id": "CMD_ARCHIVE_DOCUMENTS_TITLE" },
+      "location": "ClientSideExtension.ListViewCommandSet.CommandBar",
+      "iconImageUrl": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjMDAwIiBkPSJNMSAzYTIgMiAwIDAgMSAyLTJoMTBhMiAyIDAgMCAxIDIgMnYxMGgyYTEgMSAwIDAgMSAwIDJIM2ExIDEgMCAwIDEgLTEgMVYzem0yIDB2MTBoMTBWM2gzeiIvPjwvc3ZnPg=="
     }
   }
 }

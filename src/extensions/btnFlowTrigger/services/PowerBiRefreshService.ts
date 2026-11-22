@@ -1,60 +1,54 @@
-import { AadHttpClientFactory } from '@microsoft/sp-http';
-import {
-  AadHttpClient,
-  HttpClientResponse,
-  IHttpClientOptions
-} from '@microsoft/sp-http';
+import { AadHttpClient, HttpClientResponse, IHttpClientOptions } from '@microsoft/sp-http';
 
-export type RefreshNotifyOption = 'MailOnFailure' | 'NoNotification';
+export type PowerBiNotifyOption = 'NoNotification' | 'MailOnFailure' | 'MailOnCompletion';
 
 export interface IPowerBiRefreshConfig {
-  workspaceId?: string;
-  datasetId?: string;
-  apiScope?: string;
-  notifyOption?: RefreshNotifyOption;
+  workspaceId: string;
+  datasetId: string;
+  notifyOption?: PowerBiNotifyOption;
+  resourceUri?: string;
 }
 
-const DEFAULT_PBI_SCOPE: string = 'https://analysis.windows.net/powerbi/api/.default';
+export interface IAadClientProvider {
+  getClient: (resourceUri: string) => Promise<AadHttpClient>;
+}
 
 export class PowerBiRefreshService {
-  private readonly _aadHttpClientFactory: AadHttpClientFactory;
-  private readonly _workspaceId?: string;
-  private readonly _datasetId?: string;
-  private readonly _resourceScope: string;
-  private readonly _notifyOption: RefreshNotifyOption;
+  private readonly _aadClientProvider?: IAadClientProvider;
+  private readonly _resourceUri: string;
+  private readonly _workspaceId: string;
+  private readonly _datasetId: string;
+  private readonly _notifyOption: PowerBiNotifyOption;
   private _aadClient?: AadHttpClient;
 
-  // INBOUND: SPFx AadHttpClientFactory and caller configuration (workspaceId, datasetId, apiScope, notifyOption).
-  public constructor(
-    aadHttpClientFactory: AadHttpClientFactory,
-    config: IPowerBiRefreshConfig
-  ) {
-    this._aadHttpClientFactory = aadHttpClientFactory;
+  constructor(config: IPowerBiRefreshConfig, aadClientProvider?: IAadClientProvider, aadClient?: AadHttpClient) {
     this._workspaceId = config.workspaceId;
     this._datasetId = config.datasetId;
-    // Strip trailing "/.default" because AadHttpClientFactory expects the base resource URI.
-    this._resourceScope = (config.apiScope || DEFAULT_PBI_SCOPE).replace(/\/\.default$/, '');
-    this._notifyOption = config.notifyOption || 'MailOnFailure';
+    this._notifyOption = config.notifyOption ?? 'NoNotification';
+    this._resourceUri = config.resourceUri ?? 'https://analysis.windows.net/powerbi/api';
+    this._aadClientProvider = aadClientProvider;
+    this._aadClient = aadClient;
   }
 
-  // Returns true if both workspaceId and datasetId are set; used as a config guard before refreshing.
   public isConfigured(): boolean {
     return Boolean(this._workspaceId && this._datasetId);
   }
 
   public async initialize(): Promise<void> {
-    if (!this._aadClient) {
-      // OUTBOUND: Requests Entra ID-authenticated client for _resourceScope.
-      // INBOUND: Resolves to an initialized AadHttpClient instance.
-      this._aadClient = await this._aadHttpClientFactory.getClient(this._resourceScope);
+    if (!this._aadClientProvider) {
+      return;
     }
+
+    // OUTBOUND: Requests Entra ID-scoped AadHttpClient for Power BI API.
+    // INBOUND: Initialized AadHttpClient instance.
+    this._aadClient = await this._aadClientProvider.getClient(this._resourceUri);
   }
 
   /**
- * Triggers an asynchronous Power BI dataset refresh via the Power BI REST API and returns the HTTP status code.
- * Uses AadHttpClient so SPFx handles Entra ID token acquisition for the configured Power BI scope, and explicitly
- * accepts 202 Accepted because Power BI queues dataset refreshes asynchronously rather than completing synchronously.
- */
+   * Triggers an asynchronous Power BI dataset refresh via the Power BI REST API and returns the HTTP status code.
+   * Uses AadHttpClient so SPFx handles Entra ID token acquisition for the Power BI scope, and explicitly
+   * accepts 202 Accepted because Power BI queues dataset refreshes asynchronously.
+   */
   public async triggerRefresh(): Promise<number> {
     if (!this._workspaceId || !this._datasetId) {
       throw new Error('Power BI workspaceId and datasetId must be configured.');
@@ -87,13 +81,12 @@ export class PowerBiRefreshService {
       requestOptions
     );
 
-    // Power BI queues refreshes asynchronously and commonly returns 202 Accepted.
     if (!response.ok && response.status !== 202) {
-      // INBOUND: Error body text from Power BI API.
+      // INBOUND: Error response body text from Power BI REST API.
       const errorText = await response.text();
       throw new Error(`Power BI API HTTP ${response.status}: ${errorText || response.statusText}`);
     }
 
     return response.status;
-  } 
+  }
 }

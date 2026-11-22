@@ -1,10 +1,13 @@
-define([], function () {
+define([], function() {
   return {
-    FlowCommandTitle: "Run Flow",
-    RefreshPbiCommandTitle: "Refresh Power BI",
-    MissingConfigMessage: "Extension properties are not configured yet. Check flowWebhookUrl or Power BI IDs.",
-    FlowSuccessMessage: "Triggered Power Automate flow for {0} selected item(s).",
-    PbiRefreshAcceptedMessage: "Requested Power BI semantic model refresh (HTTP {0}).",
-    ActionFailedMessage: "Action failed: {0}"
-  };
+    "MissingConfigMessage": "Required action configuration is missing. Check the command set properties.",
+    "FlowSuccessMessage": "Triggered flow for {0} item(s).",
+    "PbiRefreshAcceptedMessage": "Power BI dataset refresh accepted (HTTP {0}).",
+    "ActionFailedMessage": "Action failed: {0}",
+    "CMD_TRIGGER_FLOW_TITLE": "Trigger Flow",
+    "CMD_REFRESH_POWERBI_TITLE": "Refresh Power BI",
+    "CMD_BATCH_UPDATE_TITLE": "Batch Update",
+    "CMD_POST_TEAMS_MESSAGE_TITLE": "Post to Teams",
+    "CMD_ARCHIVE_DOCUMENTS_TITLE": "Archive Selected"
+  }
 });
