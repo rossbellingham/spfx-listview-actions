@@ -1,0 +1,45 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "spfx-listviewbtn-flowtrigger-client-side-solution",
+    "id": "a932d0d8-9dc1-4149-8c9e-8694592df281",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.24.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "spfx-listviewbtn-flowtrigger description"
+      },
+      "longDescription": {
+        "default": "spfx-listviewbtn-flowtrigger description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "Application Extension - Deployment of custom action",
+        "description": "Deploys a custom action with ClientSideComponentId association",
+        "id": "05469dab-8797-464b-a9b1-2499d5a8ae32",
+        "version": "1.0.0.0",
+        "assets": {
+          "elementManifests": [
+            "elements.xml",
+            "ClientSideInstance.xml"
+          ]
+        }
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/spfx-listviewbtn-flowtrigger.sppkg"
+  }
+}

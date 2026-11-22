@@ -1,0 +1,35 @@
+{
+  "id": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
+  "alias": "BtnFlowTriggerCommandSet",
+  "componentType": "Extension",
+  "extensionType": "ListViewCommandSet",
+  "version": "*",
+  "manifestVersion": 2,
+  "requiresCustomScript": false,
+  "properties": {
+    "actionMode": "flow",
+    "flowWebhookUrl": "",
+    "powerBiWorkspaceId": "",
+    "powerBiDatasetId": "",
+    "powerBiApiScope": "https://analysis.windows.net/powerbi/api/.default",
+    "requireSelection": true
+  },
+  "items": {
+    "CMD_TRIGGER_FLOW": {
+      "title": {
+        "default": "Run Flow"
+      },
+      "iconImageUrl": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOCAxTDMgOFY5SDdWMTVMMTMgOFY5SDlWMUgzWiIgZmlsbD0iIzAwNzhEMCIvPjwvc3ZnPg==",
+      "location": "ClientSideExtension.ListView.CommandBar",
+      "visible": true
+    },
+    "CMD_REFRESH_PBI": {
+      "title": {
+        "default": "Refresh Power BI"
+      },
+      "iconImageUrl": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI4IiB3aWR0aD0iMi41IiBoZWlnaHQ9IjYiIGZpbGw9IiNGMkM4MTEiLz48cmVjdCB4PSI2Ljc1IiB5PSI0IiB3aWR0aD0iMi41IiBoZWlnaHQ9IjEwIiBmaWxsPSIjRjJDOEYyIi8+PHJlY3QgeD0iMTEuNSIgeWI9IjIiIHdpZHRoPSIyLjUiIGhlaWdodD0iMTIiIGZpbGw9IiNGMkM4MTEiLz48L3N2Zz4=",
+      "location": "ClientSideExtension.ListViewCommandSet.CommandBar",
+      "visible": true
+    }
+  }
+}
